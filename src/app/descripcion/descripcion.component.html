@@ -1,0 +1,143 @@
+<header>
+  <div class="nav-1">
+    <div class="logo-container">
+      <a routerLink="/inicio">
+        <img src="../../assets/img/logo.png">
+      </a>
+    </div>
+    <div class="search">
+      <input type="text" class="s-bar" placeholder="Buscar productos, marcas y más...">
+      <button><i class="fas fa-search"></i></button>
+    </div>
+    <p class="a-express">
+      <i class="fas fa-shipping-fast"></i>
+      ¡Envío Express <b>en menos de 2 horas!</b>
+    </p>
+  </div>
+
+  <div class="nav-2">
+    <a href="#" class="categories">Categorías <i class="fas fa-chevron-down"></i></a>
+    <ul class="nav__ul-1">
+      <a href="#">
+        <li>Historial</li>
+      </a>
+      <a href="#">
+        <li>Tiendas oficiales</li>
+      </a>
+      <a href="#">
+        <li>Ofertas de la semana</li>
+      </a>
+      <a href="#">
+        <li>Vender</li>
+      </a>
+      <a href="#">
+        <li>Ayuda</li>
+      </a>
+    </ul>
+
+    <ul class="nav__ul-2">
+      <a href="#">
+        <li>
+          <i class="far fa-user-circle"></i>
+          Roger
+          <i class="fas fa-chevron-down"></i>
+        </li>
+      </a>
+      <a href="#">
+        <li>Mis compras</li>
+      </a>
+      <a href="#">
+        <li>Favoritos <i class="fas fa-chevron-down"></i></li>
+      </a>
+      <a href="#">
+        <li><i class="far fa-bell"></i></li>
+      </a>
+    </ul>
+  </div>
+</header>
+
+
+
+
+<div class="article">
+  <div class="mt-4">
+    <div class="d-flex align-items-center justify-content-between mb-2">
+      <div>
+        <p>También puede interesarte: producto1 - producto2 - producto3 - producto4 - producto5</p>
+        <nav class="d-flex" aria-label="breadcrumb">
+          <a href="#" class="me-2">Volver al listado</a>
+          <span class="text-secondary">|</span>
+          <ol class="breadcrumb ms-2 my-0">
+            <li class="breadcrumb-item"><a href="#">categoria 1</a></li>
+            <li class="breadcrumb-item"><a href="#">Categoria 2</a></li>
+            <li class="breadcrumb-item"><a href="#">Categoria 3</a></li>
+            <li class="breadcrumb-item"><a href="#">Categoria Actual</a></li>
+          </ol>
+        </nav>
+      </div>
+      <div class="align-self-end">
+        <a href="#" class="mx-2">Compartir</a>
+        <span class="text-muted">|</span>
+        <a href="#" class="mx-2">Vender uno igual</a>
+      </div>
+    </div>
+      
+  </div>
+  
+  <div class="product-container">
+    <div class="product-photos">
+      <div *ngFor="let imagen of producto.imagenUrl">
+        <img [src]="imagen">
+      </div>
+    </div>
+    <div class="product-view">
+      <img [src]="producto.imagenUrl[0]">
+    </div>
+    <div class="product-info card p-3">
+      <div class="row">
+        <div class="col-10 px-1">
+          <p class="text-muted">Nuevo | {{producto.vendidos}} vendidos</p>
+          <h2>{{producto.nombre}}</h2>
+          <div class="d-flex align-items-center">
+            <ngb-rating [rate]="producto.rating" [readonly]="true" [max]="5">
+              <ng-template let-fill="fill">
+                <span class="star" [class.filled]="fill === 100">&#9733;</span>
+              </ng-template>
+            </ngb-rating>
+            <span class="text-secondary ms-1">{{producto.opiniones}} Opiniones</span>
+          </div>
+          <div class="us-price d-flex align-items-center">
+            <span>U$S {{producto.precio}}</span>
+            <i class="far fa-question-circle ms-2"></i>
+          </div>
+          <p>Bs. {{producto.precioBs}}</p>
+          <a href="#" class="">Ver los medios de pago</a>  
+        </div>
+        <div class="col mt-4 px-0"><i class="far fa-heart mt-2"></i></div>
+      </div>
+      <div class="row my-4">
+        <div class="col-1">
+          <i class="fas fa-truck text-success" *ngIf="producto.tipoEnvio == 'Envio gratis'; else elseIcon"></i>
+          <ng-template #elseIcon><i class="fas fa-user-circle text-body fs-4"></i></ng-template>
+        </div>
+        <div class="col ms-2">
+          <p class="text-success my-1 fs-6" *ngIf="producto.tipoEnvio == 'Envio gratis'; else elseText">Envío gratis por todo el país</p>
+          <ng-template #elseText>
+            <p class="my-1 fs-6">Entrega a acordar con el vendedor</p>
+          </ng-template>
+          <p class="text-secondary my-1">{{producto.lugar}}</p>
+          <a href="#">Ver costos de envío</a>
+        </div>
+      </div>
+
+      <p class="fs-6" *ngIf="producto.color != ''">Color: <b>{{producto.color}}</b></p>
+     
+      <div class="mb-4">
+        <p *ngIf="producto.disponibles > 1; else elseCantidad">Cantidad: <b>1 unidad</b><i class="fas fa-angle-down text-primary mx-2"></i> <span class="text-secondary">({{producto.disponibles}} disponibles)</span></p>
+        <ng-template #elseCantidad><b class="fs-6">¡Última disponible!</b></ng-template>
+      </div>
+      
+      <button class="btn btn-block btn-primary">Comprar ahora</button>
+    </div>
+  </div>
+</div>
